@@ -9,8 +9,8 @@
   export let isExpanded = false;
   export let tabIndex = -1;
 
-  let treeItem;
-  let treeGroup;
+  let containerEl;
+  let groupEl;
 
   function toggle() {
     isExpanded = !isExpanded;
@@ -35,7 +35,7 @@
         break;
       case "ArrowRight":
         if (isExpanded) {
-          focusItem(treeGroup.querySelector("[role='treeitem']"));
+          focusItem(groupEl.querySelector("[role='treeitem']"));
         } else {
           isExpanded = true;
         }
@@ -44,60 +44,12 @@
         break;
     }
   }
-
-  // function handleGroupKeyDown(e) {
-  //   const { key, target } = e;
-
-  //   const item = findup(target, "[role='treeitem']");
-  //   const setSize = Number(item.getAttribute("aria-setsize"));
-  //   const posInset = Number(item.getAttribute("aria-posinset"));
-
-  //   let propagate = false;
-
-  //   switch (key) {
-  //     case "ArrowUp":
-  //       _focusIndex(treeGroup, posInset - 1);
-  //       break;
-  //     case "ArrowDown":
-  //       _focusIndex(treeGroup, posInset + 1);
-  //       break;
-  //     case "Home":
-  //       _focusIndex(treeGroup, 1);
-  //       break;
-  //     case "End":
-  //       _focusIndex(treeGroup, setSize);
-  //       break;
-  //     case "ArrowLeft":
-  //       const parentItem = findup(
-  //         target,
-  //         "[role='treeitem'][aria-expanded='true']"
-  //       );
-  //       const focusRecipient = parentItem.querySelector("[tabindex]");
-
-  //       focusRecipient.focus();
-  //       break;
-  //     case "*":
-  //       break;
-  //     default:
-  //       propagate = true;
-  //   }
-
-  //   if (!propagate) {
-  //     e.preventDefault();
-  //     e.stopPropagation();
-  //   }
-  // }
 </script>
 
 <style>
   ul {
     padding: 0;
     padding-left: 20px;
-  }
-
-  button {
-    -webkit-appearance: none;
-    appearance: none;
   }
 
   li {
@@ -119,15 +71,15 @@
   aria-setsize={setSize}
   aria-posinset={posInset}
   aria-expanded={isExpanded}
-  bind:this={treeItem}>
+  bind:this={containerEl}>
   <span tabindex={tabIndex} on:click={toggle} on:keydown={handleItemKeyDown}>
      {item.label}
   </span>
   {#if isExpanded}
-    <ul role="group" bind:this={treeGroup}>
+    <ul role="group" bind:this={groupEl}>
       {#each item.children as child, i}
         <!-- <svelte:component
-          this={child.type === 'group' ? TreeGroup : TreeItem}
+          this={child.type === 'group' ? self : TreeItem}
           item={child}
           level={level + 1}
           setSize={item.children.length}
