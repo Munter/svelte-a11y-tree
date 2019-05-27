@@ -36,6 +36,15 @@
         focusItem(parentItem);
         break;
       case "*":
+        const parentGroup = findup(item, "[role='group'],[role='tree']");
+
+        const closedGroups = Array.from(parentGroup.children).filter(
+          node => node.getAttribute("aria-expanded") === "false"
+        );
+
+        for (const group of closedGroups) {
+          group.querySelector("[tabindex]").click();
+        }
         break;
       default:
         propagate = true;
@@ -60,7 +69,7 @@
       this={item.type === 'group' ? TreeGroup : TreeItem}
       {item}
       tabIndex={i === 0 ? 0 : -1}
-      level={level + 1}
+      {level}
       setSize={structure.length}
       posInset={i + 1} />
   {/each}
