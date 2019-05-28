@@ -2,7 +2,7 @@
   import TreeGroup from "./TreeGroup.svelte";
   import TreeItem from "./TreeItem.svelte";
   import findup from "../lib/findup.js";
-  import focusItem from "../lib/focusitem.js";
+  import focusItem from "../lib/focusItem.js";
 
   export let structure;
   export const level = 1;
