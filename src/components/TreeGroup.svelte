@@ -1,6 +1,6 @@
 <script>
   import TreeItem from "./TreeItem.svelte";
-  import focusItem from "../lib/focusitem.js";
+  import focusItem from "../lib/focusItem.js";
 
   export let item;
   export let level = 1;
