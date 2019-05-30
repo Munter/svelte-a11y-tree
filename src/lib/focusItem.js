@@ -7,14 +7,18 @@ export default function focusItem(item) {
 
     let nextFocused;
 
-    if (item.hasAttribute('tabindex')) {
+    if (item.hasAttribute("tabindex")) {
       nextFocused = item;
     } else {
-      nextFocused = item.querySelector('[tabindex]');
+      nextFocused = item.querySelector("[tabindex]");
     }
 
-    previousFocused.setAttribute('tabindex', -1);
-    nextFocused.setAttribute('tabindex', 0);
-    nextFocused.focus();
+    previousFocused.setAttribute("tabindex", -1);
+    nextFocused.setAttribute("tabindex", 0);
+    nextFocused.focus({ preventScroll: true });
+    nextFocused.scrollIntoView({
+      block: 'center',
+      behavior: 'smooth'
+    });
   }
 }
