@@ -78,12 +78,6 @@
   {#if isExpanded}
     <ul role="group" bind:this={groupEl}>
       {#each item.children as child, i}
-        <!-- <svelte:component
-          this={child.type === 'group' ? self : TreeItem}
-          item={child}
-          level={level + 1}
-          setSize={item.children.length}
-          posInset={i + 1} /> -->
         {#if child.type === 'group'}
           <svelte:self
             item={child}
